@@ -1,6 +1,6 @@
-var clear = require('./clear')
+var clear = require('./lib/clear')
 var chalk = require('chalk')
-var template = require('./template')
+var template = require('./lib/template')
 var spawn = require('npm-execspawn')
 
 module.exports = function(cmd) {

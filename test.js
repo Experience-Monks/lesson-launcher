@@ -2,6 +2,8 @@ var run = require('./')
 var path = require('path')
 
 //some default launchers
+//actual require will look like this:
+//  require('lesson-launcher/browserify')
 var es5 = require('./exec')('node')
 var es6 = require('./exec')('./node_modules/.bin/6to5-node')
 var browserify = require('./browserify')
