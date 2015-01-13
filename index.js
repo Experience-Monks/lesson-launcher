@@ -5,10 +5,9 @@ var path = require('path')
 var walk = require('walk').walkSync
 var xtend = require('xtend')
 var chalk = require('chalk')
-// var argv = require('minimist')(process.argv.slice(2));
-var spawn = require('npm-execspawn')
+
+var execScript = require('./exec')('node')
 var noop = function() {}
-var strip = require('strip-comments')
 
 module.exports = function entry(folder, opt) {
     start(walkdir(folder, opt), opt)
@@ -27,7 +26,7 @@ function start(lessons, opt) {
     }, function(dir) {
         var filtered = lessons.files.filter(x => dir === x.dir)
         var names = filtered.map(x => x.file)
-
+        
         //choose a file
         choose({ 
             title: dir,
@@ -68,66 +67,13 @@ function choose(opt, cb) {
     menu.createStream().pipe(process.stdout)
 }
 
-//default typemap is to just run in node
-function typemap(lesson) {
-    return 'node'
+function defaultRunner(lesson) {
+    return execScript
 }
 
 function run(lesson, opt) {
-    opt = opt||{}
-    var getType = opt.runner || typemap
-    var type = getType(lesson)
-    
-    var func
-    if (type === 'browserify')
-        func = browserify
-    else if (type === '6to5')
-        func = exec('./node_modules/.bin/6to5-node')
-    else if (typeof type === 'function')
-        func = type
-    else
-        func = exec('node')
-
+    var func = (opt && opt.runner) || execScript
     func(lesson, opt)
-}
-
-function exec(cmd) {
-    return function (lesson, opt) {
-        //clear console
-        clear()
-
-        //show the source code & info
-        console.log(template(lesson, opt))
-
-        console.log(chalk.inverse('output'))
-        console.log(chalk.dim('---------------------'))
-
-        //spawn command
-        var child = spawn(`${cmd} ${lesson.entry}`)
-        child.stderr.pipe(process.stderr)
-        child.stdout.pipe(process.stdout)
-    }
-}
-
-function browserify(lesson, opt) {
-    require('./serve')({ 
-        entries: [ lesson.entry ] 
-    }, (err, result) => {
-        if (err) {
-            console.error('could not start', err)
-            process.exit(1)
-        } else {
-            var url = `http://localhost:${result.port}/`
-            var file = chalk.bold(lesson.file)
-            clear()
-            console.log(template(lesson, opt))
-            console.log()
-            console.log(chalk.bgWhite(`running ${file} on ${url}`))
-            
-            // allow input
-            stdin(url)
-        }
-    })
 }
 
 function walkdir(folder, opt) {
@@ -164,56 +110,4 @@ function walkdir(folder, opt) {
         dirs: dirs,
         files: files
     }
-}
-
-function clear() {
-    process.stdout.write("\u001b[2J\u001b[0;0H")
-}
-
-function template(lesson, opt) {
-    opt = opt||{}
-    var marked = require('marked')
-    var TerminalRenderer = require('marked-terminal')
-
-    marked.setOptions({
-        renderer: new TerminalRenderer()
-    })
-
-    var code = fs.readFileSync(lesson.entry, 'utf8')
-    if (opt.stripComments)
-        code = strip(code).trim()
-    code = truncate(code, opt.truncate || 10)
-    code = marked(['```js', code, '```'].join('\n'))
-    var header = chalk.inverse(lesson.entry+'\n')
-    header += chalk.dim(Array(lesson.entry.length+1).join('-')+'\n')
-    return header + code
-}
-
-function truncate(text, n) {
-    var lines = text.split('\n')
-    lines = lines.filter(function(line) {
-        return line.trim().length > 0
-    })
-    if (lines.length > n) {
-        lines = lines.slice(0, n)
-        lines.push('\n// ... (continued)')
-    }
-    return lines.join('\n')
-}
-
-function stdin(url) {
-    var cmds = ['open', 'o']
-    var styled = cmds.map( x => chalk.bgWhite(x) )
-    var ops = styled.join(' or ')
-
-    console.log(chalk.dim(`enter ${ops} to open in browser`))
-    process.stdin.resume()
-    process.stdin.setEncoding('utf8')
-    process.stdin.on('data', function (data) {
-        data = (data + '').trim().toLowerCase()
-        
-        if (cmds.indexOf(data) !== -1) {
-            require('open')(url)
-        }
-    });
 }

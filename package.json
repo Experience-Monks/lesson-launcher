@@ -10,7 +10,6 @@
     "url": "https://github.com/mattdesl"
   },
   "dependencies": {
-    "6to5": "^2.11.0",
     "chalk": "^0.5.1",
     "marked": "^0.3.2",
     "marked-terminal": "^1.1.2",
@@ -24,6 +23,7 @@
     "xtend": "^4.0.0"
   },
   "devDependencies": {
+    "6to5": "^2.11.0",
     "domready": "^1.0.7",
     "gl-vignette-background": "^1.0.4",
     "tape": "^3.0.3",
