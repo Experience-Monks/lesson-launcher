@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "6to5-node test.js",
-    "compile": "6to5 *.es6 --source-maps --out-dir ."
+    "compile": "6to5 src --source-maps --out-dir ."
   },
   "keywords": [
     "lesson",
