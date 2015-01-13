@@ -15,7 +15,8 @@ module.exports = function(cmd) {
         console.log(chalk.dim('---------------------'))
 
         //spawn command
-        var child = spawn(`${cmd} ${lesson.entry}`)
+        var proc = [cmd, lesson.entry].join(' ')
+        var child = spawn(proc)
         child.stderr.pipe(process.stderr)
         child.stdout.pipe(process.stdout)
     }
