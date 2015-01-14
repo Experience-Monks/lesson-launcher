@@ -1,6 +1,6 @@
 {
   "name": "lesson-launcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "launches interactive terminal / browser lessons",
   "main": "index.js",
   "license": "MIT",
