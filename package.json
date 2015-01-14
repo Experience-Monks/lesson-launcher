@@ -46,8 +46,10 @@
   },
   "scripts": {
     "start": "6to5-node test.js",
+    "clean": "rm browserify.* index.* exec.* && rm -rf lib",
     "compile": "6to5 src --source-maps --out-dir .",
-    "prepublish": "npm run compile"
+    "prepublish": "npm run compile",
+    "postpublish": "npm run clean"
   },
   "keywords": [
     "lesson",
