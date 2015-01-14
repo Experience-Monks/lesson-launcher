@@ -1,9 +1,9 @@
-var clear = require('./clear')
-var template = require('./template')
+var clear = require('./lib/clear')
+var template = require('./lib/template')
 var chalk = require('chalk')
 
 module.exports = function browserify(lesson, opt) {
-    require('./serve')({ 
+    require('./lib/serve')({ 
         entries: [ lesson.entry ] 
     }, (err, result) => {
         if (err) {

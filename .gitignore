@@ -1,7 +1,12 @@
+*.js.map
+lib/*
+index.js
+exec.js
+browserify.js
+!src/*
+!src/lib/*
 bower_components
 node_modules
 *.log
 .DS_Store
 bundle.js
-*.js.map
-lib/*
