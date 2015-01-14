@@ -24,7 +24,12 @@
   },
   "files": [
     "README.md",
-    "dist/index.js"
+    "index.js.map",
+    "index.js",
+    "browserify.js.map",
+    "browserify.js",
+    "exec.js",
+    "exec.js.map"
   ],
   "devDependencies": {
     "6to5": "^2.11.0",
