@@ -30,12 +30,12 @@
     "browserify.js",
     "exec.js",
     "exec.js.map",
-    "./lib/clear.js.map",
-    "./lib/clear.js",
-    "./lib/serve.js.map",
-    "./lib/serve.js",
-    "./lib/template.js.map",
-    "./lib/template.js"
+    "lib/clear.js.map",
+    "lib/clear.js",
+    "lib/serve.js.map",
+    "lib/serve.js",
+    "lib/template.js.map",
+    "lib/template.js"
   ],
   "devDependencies": {
     "6to5": "^2.11.0",
