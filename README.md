@@ -2,6 +2,8 @@
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
+![screen](http://i.imgur.com/Wj4apmK.png)
+
 An interactive terminal to browse and launch JavaScript files in a particular environment. By default, uses `node` for all scripts, but this can be overridden to run es6 files or launch a browser for DOM/WebGL examples. 
 
 Currently only works with a single depth in folder structure, which typically looks like this:
