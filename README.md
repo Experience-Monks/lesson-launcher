@@ -25,6 +25,20 @@ lessons
 
 See [test.js](test.js) for example. Note that this module is highly experimental and subject to change.
 
+
+The basic setup looks like this:
+
+```js
+var run = require('lesson-launcher')
+
+run('lessons', {
+    //to filter filenames that are shown
+    accept: function(file) {
+        return /^[0-9]+/.test(f)
+    }
+})
+```
+
 ## License
 
 MIT, see [LICENSE.md](http://github.com/Jam3/lesson-launcher/blob/master/LICENSE.md) for details.
