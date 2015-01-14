@@ -29,7 +29,13 @@
     "browserify.js.map",
     "browserify.js",
     "exec.js",
-    "exec.js.map"
+    "exec.js.map",
+    "./lib/clear.js.map",
+    "./lib/clear.js",
+    "./lib/serve.js.map",
+    "./lib/serve.js",
+    "./lib/template.js.map",
+    "./lib/template.js"
   ],
   "devDependencies": {
     "6to5": "^2.11.0",
@@ -40,7 +46,8 @@
   },
   "scripts": {
     "start": "6to5-node test.js",
-    "compile": "6to5 src --source-maps --out-dir ."
+    "compile": "6to5 src --source-maps --out-dir .",
+    "prepublish": "npm run compile"
   },
   "keywords": [
     "lesson",
