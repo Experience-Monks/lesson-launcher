@@ -10,7 +10,7 @@
     "url": "https://github.com/mattdesl"
   },
   "dependencies": {
-    "chalk": "^0.5.1",
+    "chalk": "^1.0.0",
     "marked": "^0.3.2",
     "marked-terminal": "^1.1.2",
     "npm-execspawn": "^1.0.6",
